@@ -85,12 +85,12 @@ ansible-playbook --inventory ../inventory.yml --ask-vault-pass playbook.yml
 Vault password: # renseignez le mot de passe de déchiffrement du secret, puis appuyez sur entrée
 ```
 
-Une fois l'exécution terminée, connectez-vous sur un des deux hôtes avec l'utilisateur nouvellement créé.
+Une fois l'exécution terminée, connectez-vous sur un des deux hôtes avec l'utilisateur nouvellement créé (vérifiez dans l'inventaire quel utilisateur est associé à quel hôte).
 Si vous faites un `ls` pour constater la présence du fichier `fichier_statique`, vous devriez vous rendre compte que le fichier appartient à l'utilisateur et au groupe `root`. C'est l'escalade de privilège qui provoque cela, et c'est un mécanisme qu'il faudra garder à l'esprit lorsqu'on utilise le `become`.
 
 ### Compléter le playbook
 
-Pour corriger cela, il va falloir retourner consulter la documentation du module `ansible.builtin.copy`, et ajouter à minima le paramètre `owner` dans le playbook, et éventuellement `group` et `mode`. Utilisez à nouveau la variable `nom_utilisateur` pour que l'exécution soit correcte quel que soit l'hôte.
+Pour corriger cela, il va falloir retourner consulter la documentation du module `ansible.builtin.copy`, et ajouter à minima le paramètre `owner` dans le playbook, et éventuellement `group` et `mode`. Utilisez à nouveau la variable `nom_utilisateur` pour que la valeur soit adaptée à l'hôte sur lequel le playbook s'exécutera.
 
 > Faites attention au format du paramètre `mode`, celui-ci est au format octal et est donc un peu particulier.
 
