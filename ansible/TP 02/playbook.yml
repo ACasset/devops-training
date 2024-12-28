@@ -21,7 +21,7 @@
       # Comme on va copier le fichier dans le répertoire d'un autre utilisateur, on a besoin d'une escalade de privilèges ici aussi
       become: true
       ansible.builtin.copy:
-        # Comme on utilise le module 'copy', Ansible ira chercher tout seul les fichiers dans le répertoire 'files'
+        # Comme on utilise le module 'copy', Ansible ira chercher tout seul le fichier indiqué dans le répertoire 'files'
         src: fichier_statique
         # On va réutiliser la variable 'nom_utilisateur' pour trouver le répertoire home de l'utilisateur fraîchement créé
         # Notez que la variable étant au milieu de la chaîne de caractères, on a pas besoin de l'entourer de guillemets cette fois-ci

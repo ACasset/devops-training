@@ -4,6 +4,7 @@ all:
   # Des variables qui vont s'appliquer à l'ensemble du groupe et à ses enfants
   vars:
     # On peut supposer que le nom d'utilisateur SSH est commun à toutes les machines, on le met donc dans la partie 'vars'
+    # Si ce n'est pas le cas, on peut le déplacer dans les sous-groupes
     ansible_user: À_COMPLÉTER
   # Pour structurer un inventaire, on peut définir des sous-groupes
   groups:
