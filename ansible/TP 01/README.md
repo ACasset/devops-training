@@ -137,6 +137,8 @@ Dans notre cas, on a deux possibilités :
 
 > Si l'exécution échoue avec une autre erreur, vous pouvez 1° essayer de comprendre et de résoudre l'erreur, si celle-ci est assez explicite (ce n'est pas toujours le cas avec Ansible) ; 2° restaurer les fichiers et recommencer le TP, c'est peut-être une faute de frappe ou d'indentation ; ou 3° contacter un ingénieur DevOps autour de vous pour avoir de l'aide. 
 
+### Relancer l'exécution
+
 Pour démontrer l'idempotence, on va pouvoir relancer le playbook avec la même commande :
 ```bash
 ansible-playbook --inventory inventory.yml playbook.yml
