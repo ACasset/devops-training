@@ -1,3 +1,3 @@
-# TP n°04 : sauvegarder des données
+# TP n°04 : sauvegarder et restaurer des données
 
-TODO: introduction aux conditionnelles, aux tags et aux lookups
+TODO: introduction aux prompts, aux rôles, aux tags et aux lookups

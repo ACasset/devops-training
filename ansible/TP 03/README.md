@@ -14,5 +14,8 @@ Dans ce TP, c'est à vous de fournir l'inventaire. Si vous avez déjà déroulé
 
 ## Déroulé
 
-### Compléter l'inventaire
+### Compléter le playbook
 
+Le but de ce TP est d'installer un Wordpress sur un premier serveur, avec une base de données déportée sur un autre seveur.
+
+Contrairement au TP n°2, 
