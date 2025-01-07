@@ -12,33 +12,37 @@
 - name: Playbook du TP n°03 pour le frontend
   hosts: frontend
   tasks:
-    - name: Création d'un utilisateur
+    - name: Création d'un utilisateur dédié
       become: true
       ansible.builtin.user:
         name: "{{ nom_utilisateur }}"
         password: "{{ mot_de_passe_utilisateur }}"
 
-    - name: Copie d'un fichier statique dans le répertoire home de l'utilisateur
-      # Comme on va copier le fichier dans le répertoire d'un autre utilisateur, on a besoin d'une escalade de privilèges ici aussi
-      become: true
-      ansible.builtin.copy:
-        # Comme on utilise le module 'copy', Ansible ira chercher tout seul le fichier indiqué dans le répertoire 'files'
-        src: fichier_statique
-        # On va réutiliser la variable 'nom_utilisateur' pour trouver le répertoire home de l'utilisateur fraîchement créé
-        # Notez que la variable étant au milieu de la chaîne de caractères, on a pas besoin de l'entourer de guillemets cette fois-ci
-        dest: /home/{{ nom_utilisateur }}/fichier_statique
-
-    - name: Download and unpack latest WordPress
+    - name: Téléchargement et décompression de WordPress
       ansible.builtin.unarchive:
         src: https://wordpress.org/latest.tar.gz
         dest: "/var/www/{{ http_host }}"
         remote_src: yes
         creates: "/var/www/{{ http_host }}/wordpress"
 
-    - name: Copie d'un fichier dynamique
+    - name: Récupération des salts WordPress
+      ansible.builtin.uri:
+        url: https://api.wordpress.org/secret-key/1.1/salt/
+      register: wordpress_salts
+
+    - name: Affichage des salts WordPress
+      ansible.builtin.debug:
+        var: wordpress_salts
+
+    - name: Copie du fichier de configuration
       ansible.builtin.template:
-        src: fichier_dynamique
-        dest: "{{ }}"
-        owner: x
-        group: x
-        mode: x
+        # Comme on est dans le module 'template', Ansible va aller chercher le fichier dans le répertoire 'templates'
+        # Les templates étant des fichiers Jinja2, il est possible d'omettre l'extension '.j2' lorsqu'on référence le fichier
+        # TODO: j'ai un doute, à vérifier
+        src: wp-config.php
+        dest: "/var/www/{{ http_host }}/wordpress/wp-config.php"
+        owner: "{{ nom_utilisateur }}"
+        group: "{{ nom_utilisateur }}"
+        mode: '0600'
+
+    # https://kaiten.design/how-to-automate-wordpress-and-wp-config-php-creation/
