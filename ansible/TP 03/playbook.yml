@@ -1,6 +1,14 @@
 ---
 
-- name: Playbook du TP n°03 pour le backend
+- name: Actions communes aux deux machines
+  tasks:
+    - name: Création d'un utilisateur dédié
+      become: true
+      ansible.builtin.user:
+        name: "{{ nom_utilisateur }}"
+        password: "{{ mot_de_passe_utilisateur }}"
+
+- name: Actions sur la machine backend
   hosts: backend
   tasks:
     - name: Installation de PostgreSQL
@@ -9,15 +17,9 @@
         name: postgresql
         state: present
 
-- name: Playbook du TP n°03 pour le frontend
+- name: Actions sur la machine frontend
   hosts: frontend
   tasks:
-    - name: Création d'un utilisateur dédié
-      become: true
-      ansible.builtin.user:
-        name: "{{ nom_utilisateur }}"
-        password: "{{ mot_de_passe_utilisateur }}"
-
     - name: Téléchargement et décompression de WordPress
       ansible.builtin.unarchive:
         src: https://wordpress.org/latest.tar.gz
