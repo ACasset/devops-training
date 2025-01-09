@@ -1,31 +1,38 @@
 ---
 
-- name: Actions communes aux deux machines
-  tasks:
-    - name: Création d'un utilisateur dédié
-      become: true
-      ansible.builtin.user:
-        name: "{{ nom_utilisateur }}"
-        password: "{{ mot_de_passe_utilisateur }}"
-
 - name: Actions sur la machine backend
   hosts: backend
   tasks:
-    - name: Installation de PostgreSQL
+    - name: Installation de la base de données
       become: true
       ansible.builtin.package:
-        name: postgresql
+        name: nom_du_package_base_de_donnees
         state: present
+
+    - name: Création d'un utilisateur dédié sur la base de données
+      # Remplacer ce module par celui qui correspond à la base de données installée
+      community.database.create_user:
+        username: "{{ utilisateur_bdd }}"
+        # N'oubliez pas d'utiliser 'ansible-vault' pour chiffrer le mot de passe
+        password: "{{ mot_de_passe_bdd }}"
 
 - name: Actions sur la machine frontend
   hosts: frontend
   tasks:
+    - name: Installation de PHP et du serveur web
+      become: true
+        ansible.builtin.package:
+          name:
+            - nom_du_package_php
+            - nom_du_package_serveur_web
+          state: present
+
     - name: Téléchargement et décompression de WordPress
       ansible.builtin.unarchive:
         src: https://wordpress.org/latest.tar.gz
-        dest: "/var/www/{{ http_host }}"
+        dest: "/var/www/{{ nom_dossier_wordpress }}"
         remote_src: yes
-        creates: "/var/www/{{ http_host }}/wordpress"
+        creates: "/var/www/{{ nom_dossier_wordpress }}/wordpress"
 
     - name: Récupération des salts WordPress
       ansible.builtin.uri:
@@ -42,7 +49,7 @@
         # Les templates étant des fichiers Jinja2, il est possible d'omettre l'extension '.j2' lorsqu'on référence le fichier
         # TODO: j'ai un doute, à vérifier
         src: wp-config.php
-        dest: "/var/www/{{ http_host }}/wordpress/wp-config.php"
+        dest: "/var/www/{{ nom_dossier_wordpress }}/wordpress/wp-config.php"
         owner: "{{ nom_utilisateur }}"
         group: "{{ nom_utilisateur }}"
         mode: '0600'
