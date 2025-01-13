@@ -9,23 +9,29 @@
         name: nom_du_package_base_de_donnees
         state: present
 
-    - name: Création d'un utilisateur dédié sur la base de données
+    - name: Création d'un utilisateur dédié sur le serveur de base de données
       # Remplacer ce module par celui qui correspond à la base de données installée
       community.database.create_user:
         username: "{{ utilisateur_bdd }}"
         # N'oubliez pas d'utiliser 'ansible-vault' pour chiffrer le mot de passe
         password: "{{ mot_de_passe_bdd }}"
 
+    - name: Création d'une base de données dédié sur le serveur de base de données
+      # Remplacer ce module par celui qui correspond à la base de données installée
+      community.database.create_db:
+        database: "{{ nom_bdd }}"
+        username: "{{ utilisateur_bdd }}"
+
 - name: Actions sur la machine frontend
   hosts: frontend
   tasks:
     - name: Installation de PHP et du serveur web
       become: true
-        ansible.builtin.package:
-          name:
-            - nom_du_package_php
-            - nom_du_package_serveur_web
-          state: present
+      ansible.builtin.package:
+        name:
+          - nom_du_package_php
+          - nom_du_package_serveur_web
+        state: present
 
     - name: Téléchargement et décompression de WordPress
       ansible.builtin.unarchive:
@@ -46,12 +52,8 @@
     - name: Copie du fichier de configuration
       ansible.builtin.template:
         # Comme on est dans le module 'template', Ansible va aller chercher le fichier dans le répertoire 'templates'
-        # Les templates étant des fichiers Jinja2, il est possible d'omettre l'extension '.j2' lorsqu'on référence le fichier
-        # TODO: j'ai un doute, à vérifier
-        src: wp-config.php
+        src: wp-config.php.j2
         dest: "/var/www/{{ nom_dossier_wordpress }}/wordpress/wp-config.php"
-        owner: "{{ nom_utilisateur }}"
-        group: "{{ nom_utilisateur }}"
         mode: '0600'
 
     # https://kaiten.design/how-to-automate-wordpress-and-wp-config-php-creation/
