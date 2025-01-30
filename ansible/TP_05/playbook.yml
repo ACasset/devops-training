@@ -1,0 +1,59 @@
+---
+
+- name: Actions sur la machine backend
+  hosts: backend
+  tasks:
+    - name: Installation de la base de données
+      become: true
+      ansible.builtin.package:
+        name: nom_du_package_base_de_donnees
+        state: present
+
+    - name: Création d'un utilisateur dédié sur le serveur de base de données
+      # Remplacer ce module par celui qui correspond à la base de données installée
+      community.database.create_user:
+        username: "{{ utilisateur_bdd }}"
+        # N'oubliez pas d'utiliser 'ansible-vault' pour chiffrer le mot de passe
+        password: "{{ mot_de_passe_bdd }}"
+
+    - name: Création d'une base de données dédié sur le serveur de base de données
+      # Remplacer ce module par celui qui correspond à la base de données installée
+      community.database.create_db:
+        database: "{{ nom_bdd }}"
+        username: "{{ utilisateur_bdd }}"
+
+- name: Actions sur la machine frontend
+  hosts: frontend
+  tasks:
+    - name: Installation de PHP et du serveur web
+      become: true
+      ansible.builtin.package:
+        name:
+          - nom_du_package_php
+          - nom_du_package_serveur_web
+        state: present
+
+    - name: Téléchargement et décompression de WordPress
+      ansible.builtin.unarchive:
+        src: https://wordpress.org/latest.tar.gz
+        dest: "/var/www/{{ nom_dossier_wordpress }}"
+        remote_src: true
+        creates: "/var/www/{{ nom_dossier_wordpress }}/wordpress"
+
+    - name: Récupération des salts WordPress
+      ansible.builtin.uri:
+        url: https://api.wordpress.org/secret-key/1.1/salt/
+      register: __wordpress_salts
+
+    - name: Affichage des salts WordPress
+      ansible.builtin.debug:
+        var: wordpress_salts
+
+    - name: Copie du fichier de configuration
+      ansible.builtin.template:
+        # Comme on est dans le module 'template', Ansible va aller chercher le fichier dans le répertoire 'templates'
+        src: wp-config.php.j2
+        dest: "/var/www/{{ nom_dossier_wordpress }}/wordpress/wp-config.php"
+        mode: '0600'
+
+    # https://kaiten.design/how-to-automate-wordpress-and-wp-config-php-creation/

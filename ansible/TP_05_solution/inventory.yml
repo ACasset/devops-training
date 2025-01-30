@@ -1,0 +1,32 @@
+---
+
+all:
+  # Des variables qui vont s'appliquer à l'ensemble du groupe et à ses enfants
+  vars:
+    # On peut supposer que le nom d'utilisateur SSH est commun à toutes les machines, on le met donc dans la partie 'vars'
+    # Si ce n'est pas le cas, on peut le déplacer dans les sous-groupes
+    ansible_user: user
+    ansible_become_password: password
+    utilisateur_bdd: wordpress
+    mot_de_passe_bdd: V3ryS3cur3P4ssw0rd!
+    nom_bdd: wordpress
+  # Pour structurer un inventaire, on peut définir des sous-groupes
+  children:
+    # Le nom du sous-groupe
+    frontend:
+      hosts:
+        # Le nom fonctionnel d'un serveur dans le sous-groupe 'frontend'
+        serveur_frontend:
+          # Les variables qui sont définies ici ne seront utilisées que par l'hôte 'serveur_frontend'
+          ansible_host: 192.168.28.129
+          nom_utilisateur: utilisateur-frontend
+          mot_de_passe_utilisateur: À_COMPLÉTER
+          nom_dossier_wordpress: wordpress
+    backend:
+      hosts:
+        # Le nom fonctionnel d'un serveur dans le sous-groupe 'backend'
+        serveur_backend:
+          # Les variables qui sont définies ici ne seront utilisées que par l'hôte 'serveur_backend'
+          ansible_host: 192.168.28.128
+          nom_utilisateur: utilisateur-backend
+          mot_de_passe_utilisateur: À_COMPLÉTER
