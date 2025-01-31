@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name 192.168.28.129;
+    server_name {{ hostvars[groups['frontend'][0]]['ansible_host'] | default(groups['frontend'][0]) }};
 
     root /var/www/{{ nom_dossier_wordpress }}/wordpress;
     index index.php index.html index.htm;

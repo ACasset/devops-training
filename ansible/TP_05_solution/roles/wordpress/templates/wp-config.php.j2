@@ -29,7 +29,7 @@ define( 'DB_USER', '{{ utilisateur_bdd }}' );
 define( 'DB_PASSWORD', '{{ mot_de_passe_bdd }}' );
 
 /** Database hostname */
-define( 'DB_HOST', '{{ hostvars[groups['backend'][0]]['ansible_host'] }}' );
+define( 'DB_HOST', '{{ hostvars[groups['backend'][0]]['ansible_host'] | default(groups['backend'][0]) }}' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
