@@ -82,25 +82,23 @@ Chaque TP est conçu pour introduire un nombre limité de concepts afin de ne pa
 
 # Pour aller plus loin
 
-<!-- https://docs.ansible.com/ansible/2.9/user_guide/playbooks_special_topics.html -->
-
-Pour aller plus loin, vous pouvez consulter la documentation officielle sur les sujets suivants :
-- le module ansible.builtin.meta
-- le module ansible.builtin.assert
-- le module ansible.builtin.fail
-- le fichier ansible.cfg
-- la structuration des inventaires en dossiers
-- rescue et always dans les blocks : https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_blocks.html
-- les lookups
-- les tests Molecule
-- les actions asynchrones
-- le dry run / check mode
-- le debugger
-- le delegate_to
-- les prompts
-- les ancres YAML
-- start/step
-- l'utilisation avec Windows
+Pour aller plus loin, vous pouvez vous renseigner sur les sujets suivants :
+- le module [`ansible.builtin.meta`](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/meta_module.html), qui permet de provoquer des actions "spéciales" d'Ansible
+- le module [`ansible.builtin.assert`](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/assert_module.html), qui permet de vérifier des conditions et d'afficher un message en fonction de leur résultat
+- le module [`ansible.builtin.fail`](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/fail_module.html), qui permet d'interrompre un play avec un message particulier
+- le fichier [`ansible.cfg`](https://docs.ansible.com/ansible/latest/reference_appendices/config.html), qui permet de modifier la configuration d'Ansible
+- la structuration des inventaires en dossiers, qui permet de [scinder ses inventaires en plusieurs fichiers](https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#organizing-inventory-in-a-directory), ou de [reproduire la structure des groupes dans un système de fichiers](https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#organizing-host-and-group-variables)
+- les instructions [`rescue` et `always`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_blocks.html#handling-errors-with-blocks), qui permettent de gérer les erreurs dans les `blocks`
+- les [`lookups`](https://docs.ansible.com/ansible/latest/plugins/lookup.html), qui permettent de récupérer des informations de sources variées, et dont [la liste exhaustive](https://docs.ansible.com/ansible/latest/collections/index_lookup.html) est présente dans la documentation officielle
+- [`Molecule`](https://ansible.readthedocs.io/projects/molecule/), qui permet de créer des tests automatisés pour des rôles Ansible
+- le mot-clé [`async`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_async.html), qui permet de jouer des tâches de façon asynchrone
+- le mode [`check`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html), qui permet de simuler l'exécution d'un playbook
+- le mot-clé [`delegate_to`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_delegation.html), qui permet de modifier ponctuellement la machine sur laquelle le code Ansible s'exécute
+- les [`prompts`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_prompts.html), qui permettent de récupérer des informations de façon interactive avec l'utilisateur au début de l'exécution d'un playbook
+- les mots-clés [`start-at-task` et `step`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_startnstep.html), qui permettent de commencer un playbook à une tâche donnée, et de jouer un playbook de façon interactive
+- le [`debugger`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_debugger.html), à ne pas confondre avec le module `ansible.builtin.debug`, qui permet d'interrompre l'exécution d'un playbook et de corriger les erreurs à la volée
+- les spécificités du [`fonctionnement d'Ansible avec Windows`](https://docs.ansible.com/ansible/latest/os_guide/windows_usage.html), et le module [`ansible.windows`](https://docs.ansible.com/ansible/latest/collections/ansible/windows/index.html), pour adresser des machines Windows avec Ansible
+- les [ancres YAML](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_advanced_syntax.html#yaml-anchors-and-aliases-sharing-variable-values) qui permettent de réutiliser des valeurs déjà définies dans un inventaire
 
 # Crédits
 
