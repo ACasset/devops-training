@@ -12,9 +12,29 @@ Ce TP a pour but d'apprendre à :
 
 ### Installer Ansible sur le contrôleur
 
+Afin d'éviter les conflits entre librairies, Python propose un mécanisme appellé `venv` (pour `virtual environment`). Cela permet de disposer d'un environnement relativement isolé que l'on peut altérer et supprimer à loisir.
+
+Pour créer un tel `venv`, on va utiliser la commande suivante :
+```bash
+python3 -m venv ~/.venv_ansible
+```
+
+> Vous pouvez placer le `venv` où vous le voulez, mais adaptez la commande suivante en conséquence
+
+Et pour accéder au `venv`, on va utiliser la commande suivante :
+```bash
+source ~/.venv_ansible/bin/activate
+```
+
+> Notez que le prompt shell change pour indiquer le `venv` dans lequel on se trouve : vérifiez toujours que vous êtes dans le `venv` pour éviter de rencontrer des erreurs telles que `ansible : commande introuvable`
+
+> Vous pouvez rajouter la commande ci-dessous dans votre fichier `~/.bashrc` pour activer automatiquement le `venv` au lancement de votre session
+
+> Si vous souhaitez sortir du `venv` pour une raison ou une autre, tapez simplement la commande `deactivate`
+
 Pour installer Ansible, on va utiliser le gestionnaire de paquets `pip`, avec la commande suivante :
 ```bash
-python3 -m pip install --user ansible
+python3 -m pip install ansible
 ```
 
 Et on testera la réussite de l'installation avec la commande suivante :
@@ -233,7 +253,7 @@ serveur_backend | SUCCESS => {
 }
 ```
 
-On peut voir que le résultat de la commande est passé de `CHANGED` à `SUCCESS`, ainsi que la valeur de la clé `changed` qui est passée de `true` à `false`. On constate ainsi qu'Ansible n'a pas engagé d'action pour placer ce fichier, car ce dernier était déjà présent sur les hôtes.
+On peut voir que le résultat de la commande est passé de `CHANGED` à `SUCCESS`, ainsi que la valeur de la clé `changed` qui est passée de `true` à `false`. Cela signifie qu'Ansible n'a pas engagé d'action pour placer ce fichier, car ce dernier était déjà présent sur les hôtes.
 
 > Vous aurez peut-être noté que le module `ansible.builtin.command` renvoyait toujours `CHANGED`, malgré l'absence de changement concret sur les hôtes. Cela est dû à sa conception, et nous verrons plus tard comment adresser ce comportement.
 
