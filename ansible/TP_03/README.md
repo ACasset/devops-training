@@ -40,7 +40,7 @@ Dans les deux cas, il faudra bien entendu rajouter les nouvelles variables atten
 
 Si vous allez lire le playbook, vous allez pouvoir y trouver de nombreuses nouvelles choses :
 - la présence de plusieurs plays, le premier ciblant les hôtes du groupe `backend`, et le second les hôtes du groupe `frontend`
-- de nouveaux modules : `ansible.builtin.command`, `ansible.builtin.lineinfile`, `ansible.builtin.template`, `ansible.builtin.service`, `ansible.posix.firewalld` et plusieurs modules préfixés `community.postgresql`
+- de nouveaux modules : `ansible.builtin.lineinfile`, `ansible.builtin.template`, `ansible.builtin.service`, `ansible.posix.firewalld` et plusieurs modules préfixés `community.postgresql`
 - une nouvelle catégorie `handler` au même niveau que les tasks
 - une nouvelle variable `become_user` sur la tâche `Initialisation de PostgreSQL`
 - une variable spéciale `groups['backend'][0]['ansible_host']`
