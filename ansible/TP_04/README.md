@@ -40,6 +40,8 @@ Vous allez également y voir une instruction `vars_file` (que vous pouvez retrou
 - un dossier `templates`, que vous connaissez déjà : il va contenir les fichiers dynamiques.
 - un dossier `vars`, qui est nouveau, et qui va contenir les variables "privées", avec une précédence élevée (au 7ème rang sur 22), et qui ne sont pas censées être modifiées par l'utilisateur (mais qu'il peut tout de même modifier si il le souhaite à travers le mécanisme des [`extra vars`](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#defining-variables-at-runtime)). Comme pour les `defaults`, toutes les variables ont un préfixe (`__` et le nom du rôle), à la fois pour éviter les collisions, mais également pour les distinguer des `defaults` dans les tâches du rôle.
 
+> La précédence détermine l'ordre de priorité des variables. Plus la précédence d'une variable est élevée, plus elle sera prioritaire.
+
 Vous remarquerez que plusieurs de ces dossiers (tous sauf `files` et `templates`, en réalité) ont le point commun de contenir un fichier `main.yml`. Comme en Python, il s'agit d'un mot-clé indiquant qu'en l'absence d'instruction contradictoire, c'est le point d'entrée par défaut du dossier. Ainsi, toutes les variables contenues dans `defaults/main.yml` et `vars/main.yml` seront accessibles lors de l'exécution du rôle, tout comme tous les handlers contenus dans `handlers/main.yml`, et le rôle commencera son exécution par le fichier `tasks/main.yml`.
 
 Parcourez les différents fichiers et lisez les commentaires pour mieux comprendre la structure et le fonctionnement du rôle. Les nouveaux concepts que vous allez y découvrir (soit dans le fichier `tasks/main.yml`, soit dans les fichiers `tasks/configure-*.yml`) sont :

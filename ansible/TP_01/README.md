@@ -114,7 +114,7 @@ Le nommage complet de ces modules respecte la nomenclature suivante : `<namespac
 
 Toutes les actions `ad-hoc` que l'on va vouloir effectuer vont utiliser ces `modules` Ansible. Par souci de clarté, on va utiliser le nommage complet de ces modules, aussi appelé FQCN (Fully Qualified Collection Name). Ici, on va vouloir tester la connectivité des hôtes avec le module `ping`. Il s'agit d'un module natif, donc le FQCN commence par 'ansible.builtin.', et on rajoute le nom du module ensuite.
 
-> Si vous voulez la consulter, la documentation du module est disponible ici : https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html
+> Si vous voulez la consulter, la documentation du module est disponible sur [le site officiel](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html)
 
 On va donc lancer notre première commande ad-hoc comme suit :
 ```bash
@@ -145,6 +145,8 @@ Les commandes ad-hoc peuvent également accepter des arguments, avec le flag `--
 ansible all --inventory inventory.yml --module-name ansible.builtin.command --args "hostname"
 ```
 
+> Comme pour le module `ansible.builtin.ping`, la documentation du module `ansible.builtin.command` est disponible sur [le site officiel](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html)
+
 > Si vous ne spécifiez pas de module, c'est `ansible.builtin.command` qui sera utilisé par défaut. Cette instruction est donc strictement égale à `ansible all --inventory inventory.yml --args "hostname"`.
 
 Le retour attendu est du format suivant :
@@ -160,6 +162,8 @@ Maintenant, nous allons essayer une commande un peu plus complète, qui va mettr
 ```bash
 ansible all --inventory inventory.yml --module-name ansible.builtin.copy --args "dest=~/fichier content=hello_world"
 ```
+
+> Le module `ansible.builtin.copy` est un peu plus complexe, nous verrons sa documentation et nous le réutiliserons dans le TP suivant
 
 > Notez que l'on sépare les arguments avec des espaces. Vous pouvez aussi utiliser une syntaxe JSON si vous préférez, mais attention à l'échappement des apostrophes et des guillemets dans ce cas.
 
