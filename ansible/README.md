@@ -102,5 +102,6 @@ Pour aller plus loin, vous pouvez vous renseigner sur les sujets suivants :
 
 # Crédits
 
-- GitHub Copilot (GPT 4o) pour sa description de quelques concepts sur lesquels ma prose ne m'apportait pas satisfaction
+- Boussad A., Julien B., Baptiste M., Romain P. pour leur relecture et leurs retours
 - [Jeff Geerling](https://github.com/geerlingguy/) pour son [rôle Apache](https://github.com/geerlingguy/ansible-role-apache) dont je me suis largement inspiré dans le TP 04
+- GitHub Copilot (GPT 4o) pour sa description de quelques concepts sur lesquels ma prose ne m'apportait pas satisfaction
